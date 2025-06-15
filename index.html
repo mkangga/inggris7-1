@@ -42,8 +42,17 @@
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <div class="flex h-screen">
-        <aside id="sidebar" class="w-72 bg-white shadow-lg flex-shrink-0 overflow-y-auto">
+    <div class="relative min-h-screen md:flex">
+        <!-- Mobile menu bar -->
+        <div class="bg-white text-gray-800 flex justify-between md:hidden sticky top-0 z-30 shadow-md">
+            <a href="#" class="block p-4 text-sky-800 font-bold">English for Nusantara</a>
+            <button id="menu-toggle-btn" class="p-4 focus:outline-none focus:bg-gray-200">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+        </div>
+
+        <!-- sidebar -->
+        <aside id="sidebar" class="bg-white w-72 flex-shrink-0 overflow-y-auto absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-300 ease-in-out z-40 shadow-lg md:shadow-none">
             <div class="p-6">
                 <h1 class="text-xl font-bold text-sky-800">English for Nusantara</h1>
                 <p class="text-sm text-slate-500">Materi Lengkap Kelas 7</p>
@@ -391,12 +400,14 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('sidebar');
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
     const navLinks = document.querySelectorAll('.sidebar-link');
     const contentSections = document.querySelectorAll('.content-section');
     const nounChartCanvas = document.getElementById('nounChart');
     let nounChartInstance;
 
-    function showSection(targetId) {
+    function showSection(targetId, fromLinkClick = false) {
         contentSections.forEach(section => section.classList.remove('active'));
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
@@ -416,13 +427,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 nounChartInstance = null;
             }
         }
+        
+        // Close sidebar on mobile after a link is clicked
+        if (fromLinkClick && window.innerWidth < 768) {
+            if (!sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
     }
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            showSection(e.currentTarget.dataset.target);
+            showSection(e.currentTarget.dataset.target, true);
         });
+    });
+    
+    // Sidebar Toggle
+    menuToggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
     });
 
     showSection('welcome'); 
