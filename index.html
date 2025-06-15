@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English for Nusantara - Kelas 7</title>
+    <title>English for Nusantara - Kelas 7 (Lengkap)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,9 +21,10 @@
         -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .content-section { display: none; }
-        .content-section.active { display: block; }
+        .content-section.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .sidebar-link { transition: background-color 0.2s, color 0.2s; }
         .sidebar-link.active { background-color: #0369a1; color: white; }
         .flashcard-inner { transform-style: preserve-3d; transition: transform 0.6s; }
@@ -32,35 +33,46 @@
         .flashcard-back { transform: rotateY(180deg); }
         .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
         @media (min-width: 768px) { .chart-container { height: 350px; } }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary .arrow { transform: rotate(90deg); }
+        .arrow { transition: transform 0.2s; }
+        #quiz-feedback-modal { transition: opacity 0.3s ease; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
     <div class="flex h-screen">
-        <aside id="sidebar" class="w-64 bg-white shadow-lg flex-shrink-0 overflow-y-auto">
+        <aside id="sidebar" class="w-72 bg-white shadow-lg flex-shrink-0 overflow-y-auto">
             <div class="p-6">
                 <h1 class="text-xl font-bold text-sky-800">English for Nusantara</h1>
-                <p class="text-sm text-slate-500">Kelas 7</p>
+                <p class="text-sm text-slate-500">Materi Lengkap Kelas 7</p>
             </div>
             <nav id="nav-menu" class="px-4 pb-6">
                 <h2 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Navigasi</h2>
                 <ul class="mt-2">
-                    <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="welcome">👋 Selamat Datang</a></li>
+                    <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="welcome">👋 Welcome</a></li>
                 </ul>
                 <div class="mt-4">
                     <h3 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Semester 1</h3>
                     <ul class="mt-2">
-                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab1">Bab 1: All About Me</a></li>
-                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab2">Bab 2: My Daily Life</a></li>
+                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab1">Chapter 1: All About Me</a></li>
+                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab2">Chapter 2: My Daily Life</a></li>
                     </ul>
                 </div>
                 <div class="mt-4">
                     <h3 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Semester 2</h3>
                     <ul class="mt-2">
-                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab3">Bab 3: Home and Food</a></li>
-                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab4">Bab 4: Life at School</a></li>
-                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab5">Bab 5: Describing Things</a></li>
-                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab6">Bab 6: Let's Interact</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab3">Chapter 3: Home & Food</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab4">Chapter 4: Life at School</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab5">Chapter 5: Describing Things</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab6">Chapter 6: Let's Interact</a></li>
+                    </ul>
+                </div>
+                 <div class="mt-4">
+                    <h3 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Evaluasi</h3>
+                    <ul class="mt-2">
+                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="final-quiz">✔️ Kuis Akhir</a></li>
                     </ul>
                 </div>
             </nav>
@@ -70,176 +82,188 @@
             
             <div id="welcome" class="content-section">
                 <div class="bg-white p-8 rounded-2xl shadow-md">
-                    <h2 class="text-3xl font-bold text-sky-800">Selamat Datang di Petualangan Bahasa Inggrismu!</h2>
-                    <p class="mt-4 text-lg text-slate-600">Halo, teman-teman! Aplikasi ini adalah teman belajarmu untuk menjelajahi dunia Bahasa Inggris. Kamu akan bertemu Galang, Monita, dan Andre yang akan menemanimu belajar dengan cara yang seru dan interaktif.</p>
-                    <p class="mt-4 text-slate-600">Di sini, belajar bahasa terasa seperti bermain game. Tidak perlu takut salah, kunci utamanya adalah berani mencoba. Setiap bab dirancang agar dekat dengan kehidupanmu sehari-hari. Gunakan menu di sebelah kiri untuk memulai petualanganmu dari bab mana pun yang kamu suka. *Let's get started!*</p>
+                    <h2 class="text-3xl font-bold text-sky-800">Welcome to Your English Adventure!</h2>
+                    <p class="mt-4 text-lg text-slate-600">Hello, students! This app is your learning companion for exploring the world of English. You will meet Galang, Monita, and Andre who will join you in learning in a fun and interactive way.</p>
+                    <p class="mt-4 text-slate-600">Here, learning a language feels like playing a game. Don't be afraid to make mistakes; the key is to dare to try. Each chapter is designed to be close to your daily life. Use the menu on the left to start your adventure from any chapter you like. *Let's get started!*</p>
+                    <hr class="my-4">
+                    <h3 class="text-xl font-bold text-sky-700">Selamat Datang di Petualangan Bahasa Inggrismu!</h3>
+                    <p class="mt-2 text-slate-600">Halo, teman-teman! Aplikasi ini adalah teman belajarmu untuk menjelajahi dunia Bahasa Inggris. Kamu akan bertemu Galang, Monita, dan Andre yang akan menemanimu belajar dengan cara yang seru dan interaktif.</p>
+                    <p class="mt-2 text-slate-600">Di sini, belajar bahasa terasa seperti bermain game. Tidak perlu takut salah, kunci utamanya adalah berani mencoba. Setiap bab dirancang agar dekat dengan kehidupanmu sehari-hari. Gunakan menu di sebelah kiri untuk memulai petualanganmu dari bab mana pun yang kamu suka. *Mari kita mulai!*</p>
                 </div>
             </div>
 
             <div id="bab1" class="content-section">
-                <h2 class="text-3xl font-bold mb-6">Bab 1: Semua Tentang Aku (All About Me)</h2>
+                <h2 class="text-3xl font-bold mb-6">Chapter 1: All About Me</h2>
                 <div class="bg-white p-6 rounded-2xl shadow-md">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 1.1: Teman Baru</h3>
-                    <p class="mb-4">Mari kita mulai dengan belajar cara menyapa dan memperkenalkan diri. Ini adalah dasar yang sangat penting! Perhatikan dialog antara Galang dan Andre di hari pertama sekolah.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 1.1: A New Friend</h3>
+                    <p class="mb-4">Let's start by learning how to greet and introduce ourselves. This is a very important basic skill! Pay attention to the dialogue between Galang and Andre on the first day of school.</p>
                     <div class="bg-slate-100 p-4 rounded-lg">
                         <div class="flex flex-col space-y-2">
-                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-xs"><strong>Galang:</strong> Good morning!</div></div>
-                            <div class="flex justify-end"><div class="bg-emerald-200 text-slate-800 p-3 rounded-t-xl rounded-l-xl max-w-xs"><strong>Andre:</strong> Good morning!</div></div>
-                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-xs"><strong>Galang:</strong> My name is Galang. What's your name?</div></div>
-                            <div class="flex justify-end"><div class="bg-emerald-200 text-slate-800 p-3 rounded-t-xl rounded-l-xl max-w-xs"><strong>Andre:</strong> Hi, Galang. My name is Andre. Nice to meet you.</div></div>
-                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-xs"><strong>Galang:</strong> Nice to meet you too.</div></div>
+                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-md"><strong>Galang:</strong> Good morning! May I introduce myself? My name is Galang. I'm from Kalimantan. What's your name?</div></div>
+                            <div class="flex justify-end"><div class="bg-emerald-200 text-slate-800 p-3 rounded-t-xl rounded-l-xl max-w-md"><strong>Andre:</strong> Good morning! Hi, Galang. My name is Andre. I'm 12 years old and I live here in Jakarta. Nice to meet you.</div></div>
+                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-md"><strong>Galang:</strong> Nice to meet you too, Andre. Are you in class 7B?</div></div>
+                            <div class="flex justify-end"><div class="bg-emerald-200 text-slate-800 p-3 rounded-t-xl rounded-l-xl max-w-md"><strong>Andre:</strong> Yes, I am. How about you? We are classmates then!</div></div>
                         </div>
                     </div>
+                     <p class="mt-4 text-sm text-slate-600"><b>Terjemahan:</b> Mari mulai dengan belajar menyapa dan memperkenalkan diri. Ini dasar yang penting! Perhatikan dialog antara Galang dan Andre di hari pertama sekolah. Galang memperkenalkan dirinya, asalnya, dan bertanya nama Andre. Andre merespon dengan namanya, usianya, dan tempat tinggalnya.</p>
                 </div>
 
                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Subject Pronouns & To Be</h3>
-                     <div class="space-y-3">
-                        <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
-                            <summary class="font-semibold">Klik untuk melihat penjelasan</summary>
-                            <div class="mt-3 border-t pt-3">
-                                <p>Kita menggunakan 'to be' (am, is, are) untuk menjelaskan subjek.</p>
-                                <ul class="list-disc list-inside mt-2 space-y-1">
-                                    <li><b>I</b> selalu dengan <b>am</b>. Contoh: <i>I am Galang.</i></li>
-                                    <li><b>You, We, They</b> dengan <b>are</b>. Contoh: <i>You are Andre. We are classmates.</i></li>
-                                    <li><b>He, She, It</b> dengan <b>is</b>. Contoh: <i>He is my friend. She is a student.</i></li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Language Focus: Subject Pronouns & 'to be'</h3>
+                     <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
+                        <summary class="font-semibold flex justify-between items-center">
+                            <span>Click to see the explanation</span>
+                            <span class="arrow text-sky-600">▶</span>
+                        </summary>
+                        <div class="mt-3 border-t pt-3">
+                            <p>We use 'to be' (am, is, are) to describe or identify the subject. It connects the subject with a noun or an adjective.</p>
+                            <p class="mt-2"><b>Penjelasan:</b> Kita menggunakan 'to be' (am, is, are) untuk menjelaskan atau mengidentifikasi subjek. Ini menghubungkan subjek dengan kata benda atau kata sifat.</p>
+                            <table class="w-full mt-4 text-left border-collapse">
+                                <thead class="bg-slate-200">
+                                    <tr>
+                                        <th class="p-2 border">Pronoun</th>
+                                        <th class="p-2 border">Positive (+)</th>
+                                        <th class="p-2 border">Negative (-)</th>
+                                        <th class="p-2 border">Question (?)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-2 border"><b>I</b></td><td class="p-2 border">I <b>am</b> Galang.</td><td class="p-2 border">I <b>am not</b> a teacher.</td><td class="p-2 border"><b>Am I</b> in the right class?</td></tr>
+                                    <tr class="border-b"><td class="p-2 border"><b>You / We / They</b></td><td class="p-2 border">You <b>are</b> Andre.</td><td class="p-2 border">We <b>are not</b> late.</td><td class="p-2 border"><b>Are they</b> classmates?</td></tr>
+                                    <tr class="border-b"><td class="p-2 border"><b>He / She / It</b></td><td class="p-2 border">He <b>is</b> 12 years old.</td><td class="p-2 border">She <b>is not</b> from Bali.</td><td class="p-2 border"><b>Is it</b> your book?</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
                 </div>
                 
                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Kartu Kosakata (Flashcards)</h3>
-                    <p class="mb-4">Klik kartu untuk melihat artinya!</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Vocabulary Flashcards</h3>
+                    <p class="mb-4">Click the card to see the meaning! (Klik kartu untuk melihat artinya!)</p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                            <div class="flashcard-inner relative w-full h-full">
-                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Good morning</div>
-                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Selamat pagi</div>
-                            </div>
-                        </div>
-                        <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                            <div class="flashcard-inner relative w-full h-full">
-                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Name</div>
-                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Nama</div>
-                            </div>
-                        </div>
-                         <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                            <div class="flashcard-inner relative w-full h-full">
-                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Hobby</div>
-                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Hobi</div>
-                            </div>
-                        </div>
-                        <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
-                            <div class="flashcard-inner relative w-full h-full">
-                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Classmate</div>
-                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Teman sekelas</div>
-                            </div>
-                        </div>
+                        <div class="flashcard h-32" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front flex items-center justify-center bg-sky-500 text-white rounded-lg p-2 text-center font-bold">Introduce</div><div class="flashcard-back flex items-center justify-center bg-sky-700 text-white rounded-lg p-2 text-center font-bold">Memperkenalkan</div></div></div>
+                        <div class="flashcard h-32" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front flex items-center justify-center bg-sky-500 text-white rounded-lg p-2 text-center font-bold">Name</div><div class="flashcard-back flex items-center justify-center bg-sky-700 text-white rounded-lg p-2 text-center font-bold">Nama</div></div></div>
+                        <div class="flashcard h-32" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front flex items-center justify-center bg-sky-500 text-white rounded-lg p-2 text-center font-bold">Live</div><div class="flashcard-back flex items-center justify-center bg-sky-700 text-white rounded-lg p-2 text-center font-bold">Tinggal</div></div></div>
+                        <div class="flashcard h-32" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front flex items-center justify-center bg-sky-500 text-white rounded-lg p-2 text-center font-bold">Classmate</div><div class="flashcard-back flex items-center justify-center bg-sky-700 text-white rounded-lg p-2 text-center font-bold">Teman sekelas</div></div></div>
                     </div>
                 </div>
             </div>
 
             <div id="bab2" class="content-section">
-                <h2 class="text-3xl font-bold mb-6">Bab 2: Kehidupan Sehari-hari (My Daily Life)</h2>
+                <h2 class="text-3xl font-bold mb-6">Chapter 2: My Daily Life</h2>
                  <div class="bg-white p-6 rounded-2xl shadow-md">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 2.1: Satu Hari dalam Hidupku</h3>
-                    <p class="mb-4">Menceritakan rutinitas adalah cara bagus untuk berlatih. Lihat catatan harian Andre.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 2.1: A Day in My Life</h3>
+                    <p class="mb-4">Telling our routine is a great way to practice. Read Andre's daily journal entry.</p>
                     <div class="bg-slate-100 p-4 rounded-lg prose">
-                        <h4>Catatan Harian Andre</h4>
-                        <p>Today was a busy day! I always wake up <strong>at</strong> 5 o'clock in the morning. I have breakfast <strong>at</strong> 6:30 AM. <strong>On</strong> Tuesdays, I have PE class. School finishes <strong>at</strong> 2 PM. <strong>In</strong> the afternoon, I do my homework.</p>
+                        <h4>Andre's Journal</h4>
+                        <p>Today was a busy day! I always <strong>wake up</strong> at 5 o'clock in the morning. Then, I <strong>take</strong> a bath and <strong>have</strong> breakfast at 6:30 AM. I <strong>go</strong> to school at 7 o'clock. On Tuesdays, my friends and I <strong>play</strong> basketball for PE class. School <strong>finishes</strong> at 2 PM. In the afternoon, I <strong>do</strong> my homework. He (my brother) <strong>does</strong> his homework too. In the evening, we <strong>watch</strong> TV together. I usually <strong>go</strong> to bed at 9 o'clock.</p>
                     </div>
+                     <p class="mt-4 text-sm text-slate-600"><b>Terjemahan:</b> Menceritakan rutinitas adalah cara bagus untuk berlatih. Baca catatan harian Andre, dimana ia menceritakan kegiatannya dari bangun tidur, sarapan, pergi sekolah, hingga tidur lagi, lengkap dengan waktunya.</p>
                 </div>
 
                  <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Prepositions of Time (at, on, in)</h3>
-                     <div class="space-y-3">
-                        <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
-                            <summary class="font-semibold">Klik untuk melihat penggunaan at, on, in</summary>
-                            <div class="mt-3 border-t pt-3">
-                                <ul class="list-disc list-inside mt-2 space-y-1">
-                                    <li><b>at</b>: Untuk waktu spesifik (jam). Contoh: <i>at 5 o'clock</i>.</li>
-                                    <li><b>on</b>: Untuk hari dan tanggal. Contoh: <i>on Tuesday</i>.</li>
-                                    <li><b>in</b>: Untuk bagian hari, bulan, tahun. Contoh: <i>in the morning, in August</i>.</li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Language Focus: Simple Present Tense & Prepositions of Time</h3>
+                     <details class="bg-slate-50 p-4 rounded-lg cursor-pointer mb-3">
+                        <summary class="font-semibold flex justify-between items-center"><span>Simple Present Tense (for Routines)</span><span class="arrow text-sky-600">▶</span></summary>
+                        <div class="mt-3 border-t pt-3">
+                            <p>We use the Simple Present Tense for habits, routines, and general facts.</p>
+                            <p class="mt-2"><b>Aturan Penting:</b> Untuk subjek <b>He, She, It</b> (atau nama orang tunggal), tambahkan <b>-s</b> atau <b>-es</b> pada kata kerjanya.</p>
+                             <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>I/You/We/They <b>play</b> basketball.</li>
+                                <li>He/She/It <b>plays</b> basketball.</li>
+                                <li>I/You/We/They <b>watch</b> TV.</li>
+                                <li>He/She/It <b>watches</b> TV.</li>
+                             </ul>
+                        </div>
+                    </details>
+                     <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
+                        <summary class="font-semibold flex justify-between items-center"><span>Prepositions of Time (at, on, in)</span><span class="arrow text-sky-600">▶</span></summary>
+                        <div class="mt-3 border-t pt-3">
+                             <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li><b>at</b>: For specific times (clock times). <i>Contoh: <b>at</b> 5 o'clock, <b>at</b> noon.</i></li>
+                                <li><b>on</b>: For days and dates. <i>Contoh: <b>on</b> Tuesday, <b>on</b> my birthday.</i></li>
+                                <li><b>in</b>: For parts of the day, months, years, seasons. <i>Contoh: <b>in</b> the morning, <b>in</b> August, <b>in</b> 2024.</i></li>
+                             </ul>
+                        </div>
+                    </details>
                 </div>
                 
                  <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Cek Pemahaman</h3>
-                    <p class="mb-4">Pilih preposisi yang tepat untuk melengkapi kalimat.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Check Your Understanding</h3>
+                    <p class="mb-4">Choose the correct word to complete the sentences. (Pilih kata yang tepat).</p>
                     <div id="quiz-bab2" class="space-y-4">
                         <div>
-                            <p>1. I go to school ___ 7 o'clock.</p>
-                            <div class="flex space-x-2 mt-2">
-                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="at">at</button>
-                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="on">on</button>
-                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="in">in</button>
-                            </div>
+                            <p>1. My father (read/reads) a newspaper every morning.</p>
+                            <div class="flex space-x-2 mt-2"><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="read">read</button><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="reads">reads</button></div>
                         </div>
                         <div>
                             <p>2. We have a flag ceremony ___ Monday.</p>
-                            <div class="flex space-x-2 mt-2">
-                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="at">at</button>
-                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="on">on</button>
-                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="in">in</button>
-                            </div>
+                            <div class="flex space-x-2 mt-2"><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="at">at</button><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="on">on</button><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="in">in</button></div>
                         </div>
-                        <button id="submit-quiz-bab2" class="bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700">Kirim Jawaban</button>
+                         <div>
+                            <p>3. I go to school ___ 7 o'clock.</p>
+                            <div class="flex space-x-2 mt-2"><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="3" data-answer="at">at</button><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="3" data-answer="on">on</button><button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="3" data-answer="in">in</button></div>
+                        </div>
+                        <button id="submit-quiz-bab2" class="bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700">Submit Answers</button>
                         <p id="result-bab2" class="mt-4 font-semibold"></p>
                     </div>
                 </div>
-
             </div>
             
             <div id="bab3" class="content-section">
-                <h2 class="text-3xl font-bold mb-6">Bab 3: Rumah dan Makanan</h2>
+                <h2 class="text-3xl font-bold mb-6">Chapter 3: Home and Food</h2>
                 <div class="bg-white p-6 rounded-2xl shadow-md">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 3.1: Makanan Favoritku</h3>
-                    <p class="mb-4">Mendeskripsikan makanan favorit itu seru! Baca tentang Bakso, makanan favorit Galang.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 3.1: My Favorite Food</h3>
+                    <p class="mb-4">Describing favorite food is fun! Read about Bakso, Galang's favorite food.</p>
                     <div class="bg-slate-100 p-4 rounded-lg">
-                        <p>My favorite food is Bakso. It is a very popular food in Indonesia. Bakso contains meatballs, some noodles, and vegetables. The soup is made from beef broth. I like my Bakso very spicy!</p>
+                        <p>My favorite food is Bakso. It is a very popular food in Indonesia. Bakso is a type of meatball soup. It is <strong>savory</strong> and <strong>warm</strong>, perfect for a rainy day. Bakso contains <strong>some</strong> meatballs, <strong>some</strong> noodles, tofu, and vegetables. The soup is made from beef broth. There is a lot of soup in the bowl. We often add soy sauce and chili sauce to make it more <strong>delicious</strong>. I don't put <strong>any</strong> sugar in my Bakso.</p>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Countable & Uncountable Nouns</h3>
-                    <p class="mb-4">Beberapa benda bisa dihitung (countable), beberapa tidak (uncountable). Ini memengaruhi cara kita bertanya 'how many' atau 'how much'.</p>
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Language Focus: Countable vs Uncountable Nouns</h3>
+                    <p class="mb-4">Some nouns can be counted (countable), some cannot (uncountable). This affects how we use quantifiers like 'some' and 'any', and ask 'how many' or 'how much'.</p>
                     <div class="chart-container">
                         <canvas id="nounChart"></canvas>
                     </div>
-                    <p class="text-center text-sm text-slate-500 mt-2">Arahkan kursor ke bar untuk melihat contoh.</p>
+                    <p class="text-center text-sm text-slate-500 mt-2">Hover over the bars to see examples. (Arahkan kursor untuk melihat contoh).</p>
+                    <details class="bg-slate-50 p-4 rounded-lg cursor-pointer mt-4">
+                        <summary class="font-semibold flex justify-between items-center"><span>How Many vs. How Much</span><span class="arrow text-sky-600">▶</span></summary>
+                        <div class="mt-3 border-t pt-3">
+                             <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li><b>How many</b> + (countable noun jamak): <i>How many meatballs do you want?</i></li>
+                                <li><b>How much</b> + (uncountable noun): <i>How much soup is in the bowl?</i></li>
+                             </ul>
+                        </div>
+                    </details>
                 </div>
             </div>
 
             <div id="bab4" class="content-section">
-                <h2 class="text-3xl font-bold mb-6">Bab 4: Kehidupan di Sekolah</h2>
+                <h2 class="text-3xl font-bold mb-6">Chapter 4: Life at School</h2>
                 <div class="bg-white p-6 rounded-2xl shadow-md">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 4.2: Di Sekitar Sekolahku</h3>
-                    <p class="mb-4">Sangat penting untuk tahu lokasi di sekolah. Mari belajar cara bertanya dan memberi arah.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 4.2: Around My School</h3>
+                    <p class="mb-4">It's important to know the locations in your school. Let's learn how to ask for and give directions.</p>
                     <div class="flex flex-col md:flex-row gap-6">
                         <div class="md:w-1/2 bg-slate-100 p-4 rounded-lg">
-                            <h4 class="font-bold mb-2">Peta Sekolah Sederhana</h4>
+                            <h4 class="font-bold mb-2">Simple School Map</h4>
                             <div class="bg-white p-4 border rounded-md grid grid-cols-2 gap-2 text-center text-sm">
-                                <div class="bg-green-100 p-2 rounded">Gerbang</div>
-                                <div class="bg-yellow-100 p-2 rounded">Kantin</div>
-                                <div class="bg-blue-100 p-2 rounded" id="map-library">Perpustakaan</div>
-                                <div class="bg-red-100 p-2 rounded">UKS</div>
-                                <div class="bg-purple-100 p-2 rounded" id="map-lab">Lab IPA</div>
-                                <div class="bg-gray-200 p-2 rounded col-span-2">Ruang Kelas</div>
+                                <div class="bg-green-100 p-2 rounded">Gate</div>
+                                <div class="bg-yellow-100 p-2 rounded">Canteen</div>
+                                <div class="bg-blue-100 p-2 rounded" id="map-library">Library</div>
+                                <div class="bg-red-100 p-2 rounded">Clinic</div>
+                                <div class="bg-purple-100 p-2 rounded" id="map-lab">Science Lab</div>
+                                <div class="bg-gray-200 p-2 rounded col-span-2">Classrooms</div>
                             </div>
-                            <p class="mt-2 text-xs">Klik tombol di bawah untuk melihat rute.</p>
+                            <p class="mt-2 text-xs">Click the buttons below to see the route. (Klik tombol untuk melihat rute).</p>
                              <div class="mt-4 flex space-x-2">
-                                <button class="direction-btn text-xs bg-sky-500 text-white px-3 py-1 rounded-md" data-target="library">Ke Perpustakaan</button>
-                                <button class="direction-btn text-xs bg-sky-500 text-white px-3 py-1 rounded-md" data-target="lab">Ke Lab IPA</button>
+                                <button class="direction-btn text-xs bg-sky-500 text-white px-3 py-1 rounded-md" data-target="library">To the Library</button>
+                                <button class="direction-btn text-xs bg-sky-500 text-white px-3 py-1 rounded-md" data-target="lab">To the Science Lab</button>
                             </div>
                         </div>
                         <div class="md:w-1/2">
-                             <h4 class="font-bold mb-2">Petunjuk Arah:</h4>
-                             <div id="direction-text" class="bg-slate-100 p-4 rounded-lg min-h-[100px]">
-                                <p class="text-slate-500">Pilih tujuan untuk melihat petunjuk arah.</p>
+                             <h4 class="font-bold mb-2">Asking for and Giving Directions:</h4>
+                             <div id="direction-text" class="bg-slate-100 p-4 rounded-lg min-h-[150px]">
+                                <p class="text-slate-500">Choose a destination to see the directions.</p>
                              </div>
                         </div>
                     </div>
@@ -247,70 +271,123 @@
             </div>
             
             <div id="bab5" class="content-section">
-                <h2 class="text-3xl font-bold mb-6">Bab 5: Mendeskripsikan Dunia</h2>
+                <h2 class="text-3xl font-bold mb-6">Chapter 5: Describing Things</h2>
                 <div class="bg-white p-6 rounded-2xl shadow-md">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 5.1: Mendeskripsikan Orang</h3>
-                    <p class="mb-4">Untuk mendeskripsikan seseorang, kita butuh kata sifat (adjectives). Ada yang untuk penampilan fisik, ada juga untuk sifat.</p>
-                    <div class="bg-slate-100 p-4 rounded-lg">
-                        <h4 class="font-bold">Contoh Deskripsi: Andre</h4>
-                        <p>Andre is my best friend. He is <strong>tall</strong> and <strong>slim</strong>. He has <strong>short, black, wavy</strong> hair. He is also a <strong>kind</strong> and <strong>helpful</strong> person.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 5.1: Describing People & Animals</h3>
+                    <p class="mb-4">To describe someone or something, we need adjectives. Let's see how to describe a friend and an animal.</p>
+                    <div class="bg-slate-100 p-4 rounded-lg mb-4">
+                        <h4 class="font-bold">My Best Friend, Andre</h4>
+                        <p>Andre is my best friend. He is <strong>tall</strong> and <strong>slim</strong>. He has <strong>short, black, wavy</strong> hair. He is a <strong>kind</strong> and <strong>helpful</strong> person.</p>
+                    </div>
+                     <div class="bg-slate-100 p-4 rounded-lg">
+                        <h4 class="font-bold">The Komodo Dragon</h4>
+                        <p>The Komodo dragon is the <strong>largest</strong> lizard in the world. It has a <strong>long, heavy</strong> body and <strong>four short, strong</strong> legs. It is a <strong>powerful</strong> and <strong>dangerous</strong> animal.</p>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Adjectives (Kata Sifat)</h3>
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Language Focus: Adjectives & Their Order</h3>
                     <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
-                        <summary class="font-semibold">Aturan Penempatan Kata Sifat</summary>
+                        <summary class="font-semibold flex justify-between items-center"><span>Adjective Order</span><span class="arrow text-sky-600">▶</span></summary>
                         <div class="mt-3 border-t pt-3">
-                           <ol class="list-decimal list-inside space-y-1">
-                                <li>Sebelum kata benda: Contoh: <i>a <strong>tall</strong> boy, a <strong>friendly</strong> face.</i></li>
-                                <li>Setelah 'to be' (is, am, are): Contoh: <i>He <strong>is tall</strong>. They <strong>are kind</strong>.</i></li>
+                           <p>When you use multiple adjectives, they usually follow a specific order. A simple version is OSASCOMP:</p>
+                           <p><b>(Urutan Kata Sifat)</b> Saat menggunakan beberapa kata sifat, biasanya ada urutan tertentu.</p>
+                           <ol class="list-decimal list-inside space-y-1 mt-2 bg-white p-3 rounded">
+                                <li><b>O</b>pinion (Pendapat): <i>beautiful, nice, cool</i></li>
+                                <li><b>S</b>ize (Ukuran): <i>big, small, long, short</i></li>
+                                <li><b>A</b>ge (Usia): <i>old, new, young</i></li>
+                                <li><b>S</b>hape (Bentuk): <i>round, square</i></li>
+                                <li><b>C</b>olor (Warna): <i>black, red, blue</i></li>
+                                <li><b>O</b>rigin (Asal): <i>Indonesian, Japanese</i></li>
+                                <li><b>M</b>aterial (Bahan): <i>wood, plastic</i></li>
+                                <li><b>P</b>urpose (Tujuan): <i>sleeping (bag)</i></li>
                            </ol>
+                           <p class="mt-2"><b>Example:</b> She has a <i>nice (Opinion) small (Size) black (Color)</i> bag.</p>
                         </div>
                     </details>
                 </div>
             </div>
 
             <div id="bab6" class="content-section">
-                <h2 class="text-3xl font-bold mb-6">Bab 6: Mari Berinteraksi</h2>
+                <h2 class="text-3xl font-bold mb-6">Chapter 6: Let's Interact</h2>
                  <div class="bg-white p-6 rounded-2xl shadow-md">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 6.1: Opini dan Kemampuan</h3>
-                    <p class="mb-4">Dalam percakapan, kita sering memberi opini atau bicara tentang kemampuan. Perhatikan ungkapan-ungkapan ini.</p>
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 6.1: Functions of Language</h3>
+                    <p class="mb-4">In conversations, we use language for many functions. Look at these examples. (Dalam percakapan, kita menggunakan bahasa untuk banyak fungsi. Lihat contoh-contoh ini).</p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="bg-slate-100 p-4 rounded-lg">
-                            <p><strong>Memberi Opini:</strong></p>
+                            <p><strong>Asking for Opinion (Meminta Pendapat):</strong></p>
                             <p>Siti: <i>What do you think about our new classroom?</i></p>
                             <p>Dayu: <i>I think it's very clean and comfortable.</i></p>
                         </div>
                          <div class="bg-slate-100 p-4 rounded-lg">
-                            <p><strong>Menunjukkan Kemampuan:</strong></p>
+                            <p><strong>Showing Ability (Menunjukkan Kemampuan):</strong></p>
                             <p>Bima: <i>I <strong>can</strong> play the guitar, but I <strong>can't</strong> sing.</i></p>
                         </div>
                         <div class="bg-slate-100 p-4 rounded-lg">
-                            <p><strong>Kewajiban & Larangan:</strong></p>
+                            <p><strong>Obligation & Prohibition (Kewajiban & Larangan):</strong></p>
                             <p>Teacher: <i>You <strong>must</strong> do your homework. You <strong>must not</strong> be late.</i></p>
                         </div>
                         <div class="bg-slate-100 p-4 rounded-lg">
-                            <p><strong>Saran & Izin:</strong></p>
+                            <p><strong>Suggestion & Permission (Saran & Izin):</strong></p>
                             <p>Monita: <i>You <strong>should</strong> go to the clinic.</i></p>
                             <p>Andre: <i><strong>May I</strong> go to the clinic now, Sir?</i></p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
-                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 6.3: Kekuatan Sebuah Lagu</h3>
-                    <p class="mb-4">Lagu adalah cara seru belajar bahasa. Mari kita lihat makna dari lagu "Count on Me".</p>
-                    <div class="bg-slate-100 p-4 rounded-lg prose">
-                        <h4>"Count on Me" - Bruno Mars</h4>
-                        <blockquote>
-                            <p>You can count on me like one, two, three, I'll be there. And I know when I need it, I can count on you like four, three, two, and you'll be there. 'Cause that's what friends are supposed to do.</p>
-                        </blockquote>
-                        <p><strong>Makna Lagu:</strong> Lagu ini tentang persahabatan sejati. Ungkapan "count on me" berarti "kamu bisa mengandalkanku". Pesan utamanya adalah teman sejati akan selalu ada untuk saling membantu.</p>
+                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-2 text-sky-800">Unit 6.2: Invitation</h3>
+                    <p class="mb-4">Sometimes we need to invite people in writing. This is an example of an invitation.</p>
+                    <div class="bg-amber-100 border-l-4 border-amber-500 p-6 rounded-r-lg text-center">
+                        <h4 class="text-lg font-bold text-amber-800">YOU'RE INVITED!</h4>
+                        <p class="mt-2">Please join us to celebrate</p>
+                        <p class="text-2xl font-bold my-2 text-amber-900">MONITA'S 13th BIRTHDAY PARTY!</p>
+                        <p><strong>Date:</strong> Saturday, December 16th</p>
+                        <p><strong>Time:</strong> 3:00 PM - 5:00 PM</p>
+                        <p><strong>Place:</strong> Monita's House, Jl. Mawar No. 5</p>
+                        <p class="mt-4 italic">Don't be late! There will be games and delicious cake!</p>
                     </div>
                 </div>
             </div>
 
+             <div id="final-quiz" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Kuis Akhir (Final Quiz)</h2>
+                <div id="quiz-container" class="bg-white p-6 rounded-2xl shadow-md">
+                    <div id="quiz-start-screen">
+                        <p class="text-lg">Selamat datang di Kuis Akhir! Kuis ini berisi 20 soal yang mencakup semua materi dari Semester 1 dan 2. Uji pemahamanmu dan lihat seberapa banyak yang sudah kamu pelajari!</p>
+                        <button id="start-quiz-btn" class="mt-6 bg-sky-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-sky-700 transition-colors">Mulai Kuis!</button>
+                    </div>
+                    <div id="quiz-main-screen" class="hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="quiz-question-number" class="text-lg font-bold text-sky-800">Soal 1 dari 20</h3>
+                            <p id="quiz-score" class="text-lg font-semibold">Skor: 0</p>
+                        </div>
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <p id="quiz-question-text" class="text-xl leading-relaxed"></p>
+                        </div>
+                        <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        </div>
+                    </div>
+                    <div id="quiz-result-screen" class="hidden text-center">
+                         <h3 class="text-2xl font-bold text-sky-800">Kuis Selesai!</h3>
+                         <p class="mt-4 text-xl">Skor Akhir Kamu:</p>
+                         <p id="final-score" class="text-5xl font-bold my-4 text-green-600">0 / 20</p>
+                         <p id="final-message" class="text-lg"></p>
+                         <button id="restart-quiz-btn" class="mt-8 bg-sky-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-sky-700 transition-colors">Ulangi Kuis</button>
+                    </div>
+                </div>
+            </div>
+            
         </main>
     </div>
+
+    <!-- Feedback Modal -->
+    <div id="quiz-feedback-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div id="feedback-content" class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md transform scale-95 transition-transform">
+            <h3 id="feedback-title" class="text-2xl font-bold"></h3>
+            <p id="feedback-explanation" class="mt-4 text-slate-700"></p>
+            <button id="next-question-btn" class="mt-6 w-full bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700">Lanjut</button>
+        </div>
+    </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -320,9 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let nounChartInstance;
 
     function showSection(targetId) {
-        contentSections.forEach(section => {
-            section.classList.remove('active');
-        });
+        contentSections.forEach(section => section.classList.remove('active'));
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             targetSection.classList.add('active');
@@ -330,14 +405,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         navLinks.forEach(link => {
-            if (link.dataset.target === targetId) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
+            link.classList.toggle('active', link.dataset.target === targetId);
         });
 
-        if (targetId === 'bab3') {
+        if (targetId === 'bab3' && nounChartCanvas) {
             createNounChart();
         } else {
              if (nounChartInstance) {
@@ -350,15 +421,15 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = e.currentTarget.dataset.target;
-            showSection(targetId);
+            showSection(e.currentTarget.dataset.target);
         });
     });
 
     showSection('welcome'); 
 
-    const userAnswersBab2 = { 1: null, 2: null };
-    const correctAnswersBab2 = { 1: 'at', 2: 'on' };
+    // Mini Quiz Bab 2
+    const userAnswersBab2 = { 1: null, 2: null, 3: null };
+    const correctAnswersBab2 = { 1: 'reads', 2: 'on', 3: 'at' };
 
     document.querySelectorAll('.quiz-btn-bab2').forEach(button => {
         button.addEventListener('click', () => {
@@ -383,55 +454,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         const resultEl = document.getElementById('result-bab2');
-        resultEl.textContent = `Skor kamu: ${score} dari ${total} benar!`;
-        if (score === total) {
-             resultEl.style.color = 'green';
-        } else {
-             resultEl.style.color = 'orange';
-        }
+        resultEl.textContent = `Your score: ${score} out of ${total} correct! (Skor kamu: ${score} dari ${total} benar!)`;
+        resultEl.style.color = (score === total) ? 'green' : 'orange';
     });
 
     function createNounChart() {
         if (nounChartInstance || !nounChartCanvas) return;
-        
         const ctx = nounChartCanvas.getContext('2d');
         nounChartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Bisa dihitung (Countable)', 'Tidak bisa dihitung (Uncountable)'],
+                labels: ['Countable (Bisa Dihitung)', 'Uncountable (Tak Bisa Dihitung)'],
                 datasets: [{
-                    label: 'Jumlah Contoh',
                     data: [5, 5],
-                    backgroundColor: [
-                        'rgba(59, 130, 246, 0.5)',
-                        'rgba(234, 179, 8, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(59, 130, 246, 1)',
-                        'rgba(234, 179, 8, 1)'
-                    ],
+                    backgroundColor: ['rgba(59, 130, 246, 0.5)', 'rgba(234, 179, 8, 0.5)'],
+                    borderColor: ['rgba(59, 130, 246, 1)', 'rgba(234, 179, 8, 1)'],
                     borderWidth: 1
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true, display: false }
-                },
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, display: false } },
                 plugins: {
                     legend: { display: false },
                     tooltip: {
                         callbacks: {
-                            label: function(context) {
-                                let label = '';
-                                if (context.dataIndex === 0) {
-                                    label = 'Contoh: meatball, book, chair';
-                                } else {
-                                    label = 'Contoh: soup, water, rice, information';
-                                }
-                                return label;
-                            }
+                            title: () => '',
+                            label: (context) => context.dataIndex === 0 ? 'e.g., meatball, book, chair' : 'e.g., soup, water, rice, info'
                         }
                     }
                 }
@@ -443,12 +492,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const directionButtons = document.querySelectorAll('.direction-btn');
     const directionData = {
         library: {
-            title: "Petunjuk ke Perpustakaan",
-            steps: "Dari gerbang, jalan lurus di koridor ini. Lalu, belok kanan. Perpustakaan ada di samping lab IPA."
+            title: "Directions to the Library",
+            dialogue: "<strong>Student A:</strong> Excuse me, can you show me the way to the library?<br><strong>Student B:</strong> Sure. Go straight down this corridor. Then, turn right. The library is beside the science lab.<br><strong>Student A:</strong> I see. Go straight, turn right. Thank you!<br><strong>Student B:</strong> You're welcome."
         },
         lab: {
-            title: "Petunjuk ke Lab IPA",
-            steps: "Dari gerbang, jalan lurus saja. Lab IPA ada di sebelah kiri, berseberangan dengan kantin."
+            title: "Directions to the Science Lab",
+            dialogue: "<strong>Student A:</strong> Excuse me, where is the science lab?<br><strong>Student B:</strong> Oh, it's easy. From the gate, just go straight. The science lab is on your left, across from the canteen.<br><strong>Student A:</strong> Got it. Thank you so much!<br><strong>Student B:</strong> No problem."
         }
     }
     
@@ -456,13 +505,141 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const target = button.dataset.target;
             const data = directionData[target];
-            directionTextEl.innerHTML = `<h5 class="font-bold">${data.title}</h5><p class="mt-2">${data.steps}</p>`;
-            
+            directionTextEl.innerHTML = `<h5 class="font-bold">${data.title}</h5><div class="mt-2 text-sm">${data.dialogue}</div>`;
             directionButtons.forEach(btn => btn.classList.remove('bg-sky-700'));
             button.classList.add('bg-sky-700');
         });
     });
 
+    // FINAL QUIZ LOGIC
+    const quizData = [
+        { question: "A: 'Hello, my name is Budi.' B: 'Hi Budi, I'm Ani. _________'", options: ["How are you?", "Nice to meet you.", "Where do you live?", "Thank you."], answer: "Nice to meet you.", explanation: "'Nice to meet you' adalah respon yang paling umum dan sopan saat pertama kali berkenalan dengan seseorang setelah bertukar nama." },
+        { question: "She ___ a very diligent student. She always does her homework.", options: ["am", "is", "are", "be"], answer: "is", explanation: "Subjek 'She' (dia perempuan) selalu menggunakan 'to be' bentuk 'is' dalam Simple Present Tense." },
+        { question: "My friends and I ___ not from the same city. We come from different places.", options: ["am", "is", "are", "be"], answer: "are", explanation: "Subjek 'My friends and I' sama dengan 'We' (kami), yang menggunakan 'to be' bentuk 'are' dalam Simple Present Tense." },
+        { question: "My cat ___ to sleep on the cozy sofa every afternoon.", options: ["like", "liking", "likes", "is like"], answer: "likes", explanation: "Subjek 'My cat' (sama dengan 'it') adalah orang ketiga tunggal. Dalam Simple Present Tense, kata kerja untuk subjek ini ditambahkan -s atau -es." },
+        { question: "We always ___ breakfast together as a family before going to school.", options: ["has", "have", "had", "having"], answer: "have", explanation: "Untuk subjek 'We' dalam Simple Present Tense, kita menggunakan bentuk dasar kata kerja, yaitu 'have'." },
+        { question: "The movie starts ___ 8 PM. We shouldn't be late.", options: ["in", "on", "at", "by"], answer: "at", explanation: "Preposisi 'at' digunakan untuk menunjukkan waktu yang spesifik pada jam (clock time)." },
+        { question: "My birthday is ___ June. I'm so excited!", options: ["in", "on", "at", "from"], answer: "in", explanation: "Preposisi 'in' digunakan untuk bulan, tahun, dan musim. Karena 'June' adalah nama bulan, maka 'in' adalah jawaban yang tepat." },
+        { question: "How ___ sugar do you need for the coffee?", options: ["many", "much", "a lot of", "some"], answer: "much", explanation: "'Sugar' (gula) adalah kata benda yang tidak bisa dihitung (uncountable noun). Oleh karena itu, kita menggunakan 'How much' untuk menanyakan jumlahnya." },
+        { question: "There isn't ___ water left in the bottle. It's empty.", options: ["many", "some", "any", "much"], answer: "any", explanation: "'Any' biasanya digunakan dalam kalimat negatif dan kalimat tanya. Karena kalimat ini negatif ('isn't'), maka 'any' adalah pilihan yang tepat." },
+        { question: "Please hand me that book. No, not that one. I want ___ one right here in my hand.", options: ["this", "that", "these", "those"], answer: "this", explanation: "'This' digunakan untuk menunjuk satu benda yang berada dekat dengan pembicara atau dipegang olehnya." },
+        { question: "I can't reach the books on the top shelf. Could you get ___ for me?", options: ["this", "that", "these", "those"], answer: "those", explanation: "'Those' digunakan untuk menunjuk benda jamak (lebih dari satu) yang letaknya jauh dari pembicara." },
+        { question: "To get to the library, ___ straight and then turn left at the corner.", options: ["walks", "going", "go", "went"], answer: "go", explanation: "Kalimat perintah (imperative sentence) untuk memberi petunjuk arah menggunakan bentuk dasar kata kerja (verb 1)." },
+        { question: "The cat is hiding ___ the table because it's scared of the dog.", options: ["on", "in", "under", "between"], answer: "under", explanation: "'Under' berarti 'di bawah'. Ini adalah preposisi yang paling logis untuk menggambarkan kucing yang bersembunyi di bawah meja." },
+        { question: "He is a very ___ person; he always helps his friends and teachers.", options: ["lazy", "kind", "angry", "tall"], answer: "kind", explanation: "Konteks kalimat 'always helps his friends' menunjukkan sifat yang baik hati, sehingga 'kind' (baik hati) adalah jawaban yang paling sesuai." },
+        { question: "She bought a ___ dress for the party.", options: ["beautiful long red", "red beautiful long", "long red beautiful", "beautiful red long"], answer: "beautiful long red", explanation: "Urutan kata sifat yang umum adalah Opini (beautiful), Ukuran (long), Warna (red). Jadi, 'beautiful long red' adalah urutan yang benar." },
+        { question: "My dog has four legs, a long tail, and soft, brown fur. This sentence is part of a...", options: ["Narrative text", "Procedure text", "Descriptive text", "Recount text"], answer: "Descriptive text", explanation: "Teks Deskriptif (Descriptive text) bertujuan untuk menggambarkan ciri-ciri fisik atau sifat dari orang, hewan, atau benda secara spesifik." },
+        { question: "My little brother is only one year old. He ___ walk yet, but he can crawl very fast.", options: ["can", "can't", "must", "must not"], answer: "can't", explanation: "'Can't' (tidak bisa) digunakan untuk menunjukkan ketidakmampuan (inability). Konteksnya adalah bayi berumur satu tahun yang belum bisa berjalan." },
+        { question: "To enter the library, students ___ show their library card. It's a rule.", options: ["can", "should", "must", "may"], answer: "must", explanation: "'Must' digunakan untuk menunjukkan kewajiban atau keharusan (obligation) yang kuat, seperti peraturan." },
+        { question: "You look so tired after the game. You ___ take a rest now.", options: ["must", "should", "can't", "must not"], answer: "should", explanation: "'Should' digunakan untuk memberikan saran atau anjuran (suggestion) yang baik untuk dilakukan." },
+        { question: "The purpose of an invitation text is to...", options: ["tell a story", "describe a place", "explain how to do something", "ask someone to come to an event"], answer: "ask someone to come to an event", explanation: "Tujuan utama dari teks undangan (invitation) adalah untuk mengajak atau meminta seseorang untuk datang ke sebuah acara." }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const quizStartScreen = document.getElementById('quiz-start-screen');
+    const quizMainScreen = document.getElementById('quiz-main-screen');
+    const quizResultScreen = document.getElementById('quiz-result-screen');
+    
+    const startBtn = document.getElementById('start-quiz-btn');
+    const restartBtn = document.getElementById('restart-quiz-btn');
+
+    const questionNumberEl = document.getElementById('quiz-question-number');
+    const questionTextEl = document.getElementById('quiz-question-text');
+    const optionsEl = document.getElementById('quiz-options');
+    const scoreEl = document.getElementById('quiz-score');
+
+    const feedbackModal = document.getElementById('quiz-feedback-modal');
+    const feedbackContent = document.getElementById('feedback-content');
+    const feedbackTitle = document.getElementById('feedback-title');
+    const feedbackExplanation = document.getElementById('feedback-explanation');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        quizStartScreen.classList.add('hidden');
+        quizResultScreen.classList.add('hidden');
+        quizMainScreen.classList.remove('hidden');
+        scoreEl.textContent = `Skor: ${score}`;
+        showQuestion();
+    }
+    
+    function showQuestion() {
+        const currentQuestion = quizData[currentQuestionIndex];
+        questionNumberEl.textContent = `Soal ${currentQuestionIndex + 1} dari ${quizData.length}`;
+        questionTextEl.textContent = currentQuestion.question;
+        optionsEl.innerHTML = '';
+        currentQuestion.options.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.classList.add('w-full', 'bg-slate-200', 'p-4', 'rounded-lg', 'text-left', 'hover:bg-sky-200', 'transition-colors');
+            button.onclick = () => selectAnswer(option);
+            optionsEl.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedOption) {
+        const currentQuestion = quizData[currentQuestionIndex];
+        const isCorrect = selectedOption === currentQuestion.answer;
+        
+        if(isCorrect) {
+            score++;
+            feedbackTitle.textContent = 'Benar! 👍';
+            feedbackTitle.className = 'text-2xl font-bold text-green-600';
+        } else {
+            feedbackTitle.textContent = 'Kurang Tepat 🤔';
+            feedbackTitle.className = 'text-2xl font-bold text-amber-600';
+        }
+        scoreEl.textContent = `Skor: ${score}`;
+        feedbackExplanation.innerHTML = `<b>Jawaban yang benar: ${currentQuestion.answer}</b><br><br>${currentQuestion.explanation}`;
+        showFeedbackModal();
+    }
+
+    function showFeedbackModal() {
+        feedbackModal.classList.remove('opacity-0', 'pointer-events-none');
+        feedbackContent.classList.add('scale-100');
+        feedbackContent.classList.remove('scale-95');
+    }
+
+    function hideFeedbackModal() {
+        feedbackModal.classList.add('opacity-0', 'pointer-events-none');
+        feedbackContent.classList.remove('scale-100');
+        feedbackContent.classList.add('scale-95');
+    }
+
+    function handleNextQuestion() {
+        hideFeedbackModal();
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+            showQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        quizMainScreen.classList.add('hidden');
+        quizResultScreen.classList.remove('hidden');
+        document.getElementById('final-score').textContent = `${score} / ${quizData.length}`;
+        const percentage = (score / quizData.length) * 100;
+        const finalMessage = document.getElementById('final-message');
+        if (percentage >= 80) {
+            finalMessage.textContent = "Excellent! Pemahamanmu sangat bagus!";
+            finalMessage.style.color = 'green';
+        } else if (percentage >= 60) {
+            finalMessage.textContent = "Good job! Terus tingkatkan lagi belajarmu.";
+             finalMessage.style.color = 'blue';
+        } else {
+            finalMessage.textContent = "Jangan menyerah! Coba ulangi materi dan kuisnya lagi ya.";
+            finalMessage.style.color = 'orange';
+        }
+    }
+
+    startBtn.addEventListener('click', startQuiz);
+    restartBtn.addEventListener('click', startQuiz);
+    nextQuestionBtn.addEventListener('click', handleNextQuestion);
 });
 </script>
 
