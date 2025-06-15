@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English for Nusantara - Kelas 7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Soft Accents -->
+    <!-- Application Structure Plan: Desain aplikasi ini menggunakan tata letak dua kolom: sidebar navigasi tetap di sebelah kiri dan area konten utama yang dinamis di sebelah kanan. Sidebar memungkinkan siswa untuk dengan mudah melompat antar semester dan bab, memberikan kebebasan eksplorasi yang tidak linear. Struktur ini dipilih untuk mengubah format buku teks yang linear menjadi pengalaman yang lebih interaktif seperti dasbor. Konten di area utama disajikan dalam bentuk 'kartu' (cards), 'akordeon' (accordions) untuk tata bahasa, dan kuis interaktif untuk memecah informasi menjadi bagian-bagian yang mudah dicerna dan mendorong keterlibatan aktif, bukan hanya membaca pasif. Alur pengguna dirancang agar intuitif: pilih topik di sidebar, lalu berinteraksi dengan konten di area utama. -->
+    <!-- Visualization & Content Choices: 
+        1. Info: Dialog perkenalan (Bab 1) -> Goal: Inform & Engage -> Viz: HTML/CSS chat bubbles -> Interaction: Visual reading -> Justification: Lebih menarik secara visual daripada teks biasa.
+        2. Info: Kosakata (Semua Bab) -> Goal: Memorize -> Viz: Interactive Flashcards -> Interaction: Click to flip -> Justification: Mendorong active recall yang lebih efektif untuk menghafal.
+        3. Info: Grammar Explanations (Fokus Bahasa) -> Goal: Inform & Organize -> Viz: Accordion/Toggle -> Interaction: Click to expand/collapse -> Justification: Menjaga halaman tetap bersih dan memungkinkan siswa fokus pada satu aturan tata bahasa pada satu waktu.
+        4. Info: Countable vs. Uncountable Nouns (Bab 3) -> Goal: Compare & Clarify -> Viz: Bar Chart (Chart.js) -> Interaction: Hover for examples -> Justification: Visualisasi data membedakan dua konsep secara jelas, lebih baik dari daftar teks.
+        5. Info: Asking for Directions (Bab 4) -> Goal: Apply -> Viz: Simple map diagram (HTML/CSS) -> Interaction: Click location buttons to show route text -> Justification: Mensimulasikan tugas praktis dalam format yang aman dan berulang.
+        6. Info: Self-Assessment (Akhir Bab) -> Goal: Assess -> Viz: Multiple choice quiz with results chart -> Interaction: Select answers, submit -> Justification: Memberikan umpan balik instan dan memperkuat pembelajaran.
+        -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .sidebar-link { transition: background-color 0.2s, color 0.2s; }
+        .sidebar-link.active { background-color: #0369a1; color: white; }
+        .flashcard-inner { transform-style: preserve-3d; transition: transform 0.6s; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .flashcard-back { transform: rotateY(180deg); }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex h-screen">
+        <aside id="sidebar" class="w-64 bg-white shadow-lg flex-shrink-0 overflow-y-auto">
+            <div class="p-6">
+                <h1 class="text-xl font-bold text-sky-800">English for Nusantara</h1>
+                <p class="text-sm text-slate-500">Kelas 7</p>
+            </div>
+            <nav id="nav-menu" class="px-4 pb-6">
+                <h2 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Navigasi</h2>
+                <ul class="mt-2">
+                    <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="welcome">👋 Selamat Datang</a></li>
+                </ul>
+                <div class="mt-4">
+                    <h3 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Semester 1</h3>
+                    <ul class="mt-2">
+                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab1">Bab 1: All About Me</a></li>
+                        <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab2">Bab 2: My Daily Life</a></li>
+                    </ul>
+                </div>
+                <div class="mt-4">
+                    <h3 class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Semester 2</h3>
+                    <ul class="mt-2">
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab3">Bab 3: Home and Food</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab4">Bab 4: Life at School</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab5">Bab 5: Describing Things</a></li>
+                         <li><a href="#" class="sidebar-link flex items-center p-3 my-1 rounded-lg font-medium hover:bg-sky-100" data-target="bab6">Bab 6: Let's Interact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto">
+            
+            <div id="welcome" class="content-section">
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h2 class="text-3xl font-bold text-sky-800">Selamat Datang di Petualangan Bahasa Inggrismu!</h2>
+                    <p class="mt-4 text-lg text-slate-600">Halo, teman-teman! Aplikasi ini adalah teman belajarmu untuk menjelajahi dunia Bahasa Inggris. Kamu akan bertemu Galang, Monita, dan Andre yang akan menemanimu belajar dengan cara yang seru dan interaktif.</p>
+                    <p class="mt-4 text-slate-600">Di sini, belajar bahasa terasa seperti bermain game. Tidak perlu takut salah, kunci utamanya adalah berani mencoba. Setiap bab dirancang agar dekat dengan kehidupanmu sehari-hari. Gunakan menu di sebelah kiri untuk memulai petualanganmu dari bab mana pun yang kamu suka. *Let's get started!*</p>
+                </div>
+            </div>
+
+            <div id="bab1" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Bab 1: Semua Tentang Aku (All About Me)</h2>
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 1.1: Teman Baru</h3>
+                    <p class="mb-4">Mari kita mulai dengan belajar cara menyapa dan memperkenalkan diri. Ini adalah dasar yang sangat penting! Perhatikan dialog antara Galang dan Andre di hari pertama sekolah.</p>
+                    <div class="bg-slate-100 p-4 rounded-lg">
+                        <div class="flex flex-col space-y-2">
+                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-xs"><strong>Galang:</strong> Good morning!</div></div>
+                            <div class="flex justify-end"><div class="bg-emerald-200 text-slate-800 p-3 rounded-t-xl rounded-l-xl max-w-xs"><strong>Andre:</strong> Good morning!</div></div>
+                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-xs"><strong>Galang:</strong> My name is Galang. What's your name?</div></div>
+                            <div class="flex justify-end"><div class="bg-emerald-200 text-slate-800 p-3 rounded-t-xl rounded-l-xl max-w-xs"><strong>Andre:</strong> Hi, Galang. My name is Andre. Nice to meet you.</div></div>
+                            <div class="flex justify-start"><div class="bg-sky-200 text-slate-800 p-3 rounded-t-xl rounded-r-xl max-w-xs"><strong>Galang:</strong> Nice to meet you too.</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Subject Pronouns & To Be</h3>
+                     <div class="space-y-3">
+                        <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
+                            <summary class="font-semibold">Klik untuk melihat penjelasan</summary>
+                            <div class="mt-3 border-t pt-3">
+                                <p>Kita menggunakan 'to be' (am, is, are) untuk menjelaskan subjek.</p>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><b>I</b> selalu dengan <b>am</b>. Contoh: <i>I am Galang.</i></li>
+                                    <li><b>You, We, They</b> dengan <b>are</b>. Contoh: <i>You are Andre. We are classmates.</i></li>
+                                    <li><b>He, She, It</b> dengan <b>is</b>. Contoh: <i>He is my friend. She is a student.</i></li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Kartu Kosakata (Flashcards)</h3>
+                    <p class="mb-4">Klik kartu untuk melihat artinya!</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                            <div class="flashcard-inner relative w-full h-full">
+                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Good morning</div>
+                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Selamat pagi</div>
+                            </div>
+                        </div>
+                        <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                            <div class="flashcard-inner relative w-full h-full">
+                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Name</div>
+                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Nama</div>
+                            </div>
+                        </div>
+                         <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                            <div class="flashcard-inner relative w-full h-full">
+                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Hobby</div>
+                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Hobi</div>
+                            </div>
+                        </div>
+                        <div class="flashcard h-32 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                            <div class="flashcard-inner relative w-full h-full">
+                                <div class="flashcard-front absolute w-full h-full bg-sky-500 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Classmate</div>
+                                <div class="flashcard-back absolute w-full h-full bg-sky-700 text-white flex items-center justify-center rounded-lg shadow-md p-2 text-center font-bold">Teman sekelas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bab2" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Bab 2: Kehidupan Sehari-hari (My Daily Life)</h2>
+                 <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 2.1: Satu Hari dalam Hidupku</h3>
+                    <p class="mb-4">Menceritakan rutinitas adalah cara bagus untuk berlatih. Lihat catatan harian Andre.</p>
+                    <div class="bg-slate-100 p-4 rounded-lg prose">
+                        <h4>Catatan Harian Andre</h4>
+                        <p>Today was a busy day! I always wake up <strong>at</strong> 5 o'clock in the morning. I have breakfast <strong>at</strong> 6:30 AM. <strong>On</strong> Tuesdays, I have PE class. School finishes <strong>at</strong> 2 PM. <strong>In</strong> the afternoon, I do my homework.</p>
+                    </div>
+                </div>
+
+                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Prepositions of Time (at, on, in)</h3>
+                     <div class="space-y-3">
+                        <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
+                            <summary class="font-semibold">Klik untuk melihat penggunaan at, on, in</summary>
+                            <div class="mt-3 border-t pt-3">
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><b>at</b>: Untuk waktu spesifik (jam). Contoh: <i>at 5 o'clock</i>.</li>
+                                    <li><b>on</b>: Untuk hari dan tanggal. Contoh: <i>on Tuesday</i>.</li>
+                                    <li><b>in</b>: Untuk bagian hari, bulan, tahun. Contoh: <i>in the morning, in August</i>.</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                 <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Cek Pemahaman</h3>
+                    <p class="mb-4">Pilih preposisi yang tepat untuk melengkapi kalimat.</p>
+                    <div id="quiz-bab2" class="space-y-4">
+                        <div>
+                            <p>1. I go to school ___ 7 o'clock.</p>
+                            <div class="flex space-x-2 mt-2">
+                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="at">at</button>
+                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="on">on</button>
+                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="1" data-answer="in">in</button>
+                            </div>
+                        </div>
+                        <div>
+                            <p>2. We have a flag ceremony ___ Monday.</p>
+                            <div class="flex space-x-2 mt-2">
+                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="at">at</button>
+                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="on">on</button>
+                                <button class="quiz-btn-bab2 bg-slate-200 px-4 py-2 rounded-lg" data-question="2" data-answer="in">in</button>
+                            </div>
+                        </div>
+                        <button id="submit-quiz-bab2" class="bg-sky-600 text-white px-6 py-2 rounded-lg hover:bg-sky-700">Kirim Jawaban</button>
+                        <p id="result-bab2" class="mt-4 font-semibold"></p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div id="bab3" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Bab 3: Rumah dan Makanan</h2>
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 3.1: Makanan Favoritku</h3>
+                    <p class="mb-4">Mendeskripsikan makanan favorit itu seru! Baca tentang Bakso, makanan favorit Galang.</p>
+                    <div class="bg-slate-100 p-4 rounded-lg">
+                        <p>My favorite food is Bakso. It is a very popular food in Indonesia. Bakso contains meatballs, some noodles, and vegetables. The soup is made from beef broth. I like my Bakso very spicy!</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Countable & Uncountable Nouns</h3>
+                    <p class="mb-4">Beberapa benda bisa dihitung (countable), beberapa tidak (uncountable). Ini memengaruhi cara kita bertanya 'how many' atau 'how much'.</p>
+                    <div class="chart-container">
+                        <canvas id="nounChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-slate-500 mt-2">Arahkan kursor ke bar untuk melihat contoh.</p>
+                </div>
+            </div>
+
+            <div id="bab4" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Bab 4: Kehidupan di Sekolah</h2>
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 4.2: Di Sekitar Sekolahku</h3>
+                    <p class="mb-4">Sangat penting untuk tahu lokasi di sekolah. Mari belajar cara bertanya dan memberi arah.</p>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2 bg-slate-100 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">Peta Sekolah Sederhana</h4>
+                            <div class="bg-white p-4 border rounded-md grid grid-cols-2 gap-2 text-center text-sm">
+                                <div class="bg-green-100 p-2 rounded">Gerbang</div>
+                                <div class="bg-yellow-100 p-2 rounded">Kantin</div>
+                                <div class="bg-blue-100 p-2 rounded" id="map-library">Perpustakaan</div>
+                                <div class="bg-red-100 p-2 rounded">UKS</div>
+                                <div class="bg-purple-100 p-2 rounded" id="map-lab">Lab IPA</div>
+                                <div class="bg-gray-200 p-2 rounded col-span-2">Ruang Kelas</div>
+                            </div>
+                            <p class="mt-2 text-xs">Klik tombol di bawah untuk melihat rute.</p>
+                             <div class="mt-4 flex space-x-2">
+                                <button class="direction-btn text-xs bg-sky-500 text-white px-3 py-1 rounded-md" data-target="library">Ke Perpustakaan</button>
+                                <button class="direction-btn text-xs bg-sky-500 text-white px-3 py-1 rounded-md" data-target="lab">Ke Lab IPA</button>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                             <h4 class="font-bold mb-2">Petunjuk Arah:</h4>
+                             <div id="direction-text" class="bg-slate-100 p-4 rounded-lg min-h-[100px]">
+                                <p class="text-slate-500">Pilih tujuan untuk melihat petunjuk arah.</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="bab5" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Bab 5: Mendeskripsikan Dunia</h2>
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 5.1: Mendeskripsikan Orang</h3>
+                    <p class="mb-4">Untuk mendeskripsikan seseorang, kita butuh kata sifat (adjectives). Ada yang untuk penampilan fisik, ada juga untuk sifat.</p>
+                    <div class="bg-slate-100 p-4 rounded-lg">
+                        <h4 class="font-bold">Contoh Deskripsi: Andre</h4>
+                        <p>Andre is my best friend. He is <strong>tall</strong> and <strong>slim</strong>. He has <strong>short, black, wavy</strong> hair. He is also a <strong>kind</strong> and <strong>helpful</strong> person.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Fokus Bahasa: Adjectives (Kata Sifat)</h3>
+                    <details class="bg-slate-50 p-4 rounded-lg cursor-pointer">
+                        <summary class="font-semibold">Aturan Penempatan Kata Sifat</summary>
+                        <div class="mt-3 border-t pt-3">
+                           <ol class="list-decimal list-inside space-y-1">
+                                <li>Sebelum kata benda: Contoh: <i>a <strong>tall</strong> boy, a <strong>friendly</strong> face.</i></li>
+                                <li>Setelah 'to be' (is, am, are): Contoh: <i>He <strong>is tall</strong>. They <strong>are kind</strong>.</i></li>
+                           </ol>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="bab6" class="content-section">
+                <h2 class="text-3xl font-bold mb-6">Bab 6: Mari Berinteraksi</h2>
+                 <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 6.1: Opini dan Kemampuan</h3>
+                    <p class="mb-4">Dalam percakapan, kita sering memberi opini atau bicara tentang kemampuan. Perhatikan ungkapan-ungkapan ini.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <p><strong>Memberi Opini:</strong></p>
+                            <p>Siti: <i>What do you think about our new classroom?</i></p>
+                            <p>Dayu: <i>I think it's very clean and comfortable.</i></p>
+                        </div>
+                         <div class="bg-slate-100 p-4 rounded-lg">
+                            <p><strong>Menunjukkan Kemampuan:</strong></p>
+                            <p>Bima: <i>I <strong>can</strong> play the guitar, but I <strong>can't</strong> sing.</i></p>
+                        </div>
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <p><strong>Kewajiban & Larangan:</strong></p>
+                            <p>Teacher: <i>You <strong>must</strong> do your homework. You <strong>must not</strong> be late.</i></p>
+                        </div>
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <p><strong>Saran & Izin:</strong></p>
+                            <p>Monita: <i>You <strong>should</strong> go to the clinic.</i></p>
+                            <p>Andre: <i><strong>May I</strong> go to the clinic now, Sir?</i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md mt-6">
+                    <h3 class="text-xl font-bold mb-4 text-sky-800">Unit 6.3: Kekuatan Sebuah Lagu</h3>
+                    <p class="mb-4">Lagu adalah cara seru belajar bahasa. Mari kita lihat makna dari lagu "Count on Me".</p>
+                    <div class="bg-slate-100 p-4 rounded-lg prose">
+                        <h4>"Count on Me" - Bruno Mars</h4>
+                        <blockquote>
+                            <p>You can count on me like one, two, three, I'll be there. And I know when I need it, I can count on you like four, three, two, and you'll be there. 'Cause that's what friends are supposed to do.</p>
+                        </blockquote>
+                        <p><strong>Makna Lagu:</strong> Lagu ini tentang persahabatan sejati. Ungkapan "count on me" berarti "kamu bisa mengandalkanku". Pesan utamanya adalah teman sejati akan selalu ada untuk saling membantu.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.sidebar-link');
+    const contentSections = document.querySelectorAll('.content-section');
+    const nounChartCanvas = document.getElementById('nounChart');
+    let nounChartInstance;
+
+    function showSection(targetId) {
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        navLinks.forEach(link => {
+            if (link.dataset.target === targetId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        if (targetId === 'bab3') {
+            createNounChart();
+        } else {
+             if (nounChartInstance) {
+                nounChartInstance.destroy();
+                nounChartInstance = null;
+            }
+        }
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = e.currentTarget.dataset.target;
+            showSection(targetId);
+        });
+    });
+
+    showSection('welcome'); 
+
+    const userAnswersBab2 = { 1: null, 2: null };
+    const correctAnswersBab2 = { 1: 'at', 2: 'on' };
+
+    document.querySelectorAll('.quiz-btn-bab2').forEach(button => {
+        button.addEventListener('click', () => {
+            const question = button.dataset.question;
+            userAnswersBab2[question] = button.dataset.answer;
+            
+            document.querySelectorAll(`.quiz-btn-bab2[data-question="${question}"]`).forEach(btn => {
+                btn.classList.remove('bg-sky-500', 'text-white');
+                btn.classList.add('bg-slate-200');
+            });
+            button.classList.add('bg-sky-500', 'text-white');
+            button.classList.remove('bg-slate-200');
+        });
+    });
+
+    document.getElementById('submit-quiz-bab2').addEventListener('click', () => {
+        let score = 0;
+        let total = Object.keys(correctAnswersBab2).length;
+        for (const q in userAnswersBab2) {
+            if (userAnswersBab2[q] === correctAnswersBab2[q]) {
+                score++;
+            }
+        }
+        const resultEl = document.getElementById('result-bab2');
+        resultEl.textContent = `Skor kamu: ${score} dari ${total} benar!`;
+        if (score === total) {
+             resultEl.style.color = 'green';
+        } else {
+             resultEl.style.color = 'orange';
+        }
+    });
+
+    function createNounChart() {
+        if (nounChartInstance || !nounChartCanvas) return;
+        
+        const ctx = nounChartCanvas.getContext('2d');
+        nounChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Bisa dihitung (Countable)', 'Tidak bisa dihitung (Uncountable)'],
+                datasets: [{
+                    label: 'Jumlah Contoh',
+                    data: [5, 5],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.5)',
+                        'rgba(234, 179, 8, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(234, 179, 8, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, display: false }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = '';
+                                if (context.dataIndex === 0) {
+                                    label = 'Contoh: meatball, book, chair';
+                                } else {
+                                    label = 'Contoh: soup, water, rice, information';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    const directionTextEl = document.getElementById('direction-text');
+    const directionButtons = document.querySelectorAll('.direction-btn');
+    const directionData = {
+        library: {
+            title: "Petunjuk ke Perpustakaan",
+            steps: "Dari gerbang, jalan lurus di koridor ini. Lalu, belok kanan. Perpustakaan ada di samping lab IPA."
+        },
+        lab: {
+            title: "Petunjuk ke Lab IPA",
+            steps: "Dari gerbang, jalan lurus saja. Lab IPA ada di sebelah kiri, berseberangan dengan kantin."
+        }
+    }
+    
+    directionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const target = button.dataset.target;
+            const data = directionData[target];
+            directionTextEl.innerHTML = `<h5 class="font-bold">${data.title}</h5><p class="mt-2">${data.steps}</p>`;
+            
+            directionButtons.forEach(btn => btn.classList.remove('bg-sky-700'));
+            button.classList.add('bg-sky-700');
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
